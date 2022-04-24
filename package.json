@@ -1,0 +1,29 @@
+{
+  "name": "teamdash",
+  "version": "1.0.0",
+  "description": "as a team member I want to automate the creation of a webpage that displays my team's basic information so that their emails and GitHub profiles are readily accessible",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcjbyday/teamdash.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcjbyday/teamdash/issues"
+  },
+  "homepage": "https://github.com/mcjbyday/teamdash#readme",
+  "dependencies": {
+    "inquirer": "^8.2.2"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
