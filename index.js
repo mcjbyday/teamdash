@@ -9,6 +9,7 @@ const Intern = require('./lib/Intern');
 // declare an array of possible employees 
 let myGlobalPeople = [];
 
+
 // start with adding a manager for all runthroughs
 const addManager = () => {
     return inquirer.prompt([
@@ -111,18 +112,72 @@ const addTeamMember = () => {
                 addTeamMember();
             } 
             else {
-                myWriteFunction();
+                let fullTeam = buildCards();
+                myWriteFunction(fullTeam);
             }
         })
     }
 
-function myWriteFunction() {
+function myWriteFunction(allCards) {
     // use global array and generate the doc using boilerplate card HTML with template literals
     fs.writeFile('./dist/garbage_out.html',
-`<h1 class="project-title">${myGlobalPeople[0].name} who is a ${myGlobalPeople[0].getRole()}</h1>\n
-<h1 class="project-title">${myGlobalPeople[1].name} who is a ${myGlobalPeople[1].getRole()}</h1>\n
-<h1 class="project-title">${myGlobalPeople[2].name} who is a ${myGlobalPeople[2].getRole()}</h1>`, 
+`<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Team Dash</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="./assets/style.css" rel="stylesheet" >
+</head>
+<body>
+    <header class="main_header bg-dark text-white">The Kids</header>
+    <section class="main_container">${allCards}</section>
+</body>
+</html>`, 
     (err) => err ? console.error(err) : console.log('Check directory for details'));
 }
+
+let myIconsSRC = [
+    "./assets/person-harassing-solid.svg", 
+    "./assets/baby-carriage-solid.svg", 
+    "./assets/gem-solid.svg" 
+];
+
+function buildCards() {
+    let myTeamCards = ``;
+    let myIcon = ``;
+    let mySpecialInfo = ``;
+
+    for (i = 0; i < myGlobalPeople.length; i++) {
+        
+        if (myGlobalPeople[i].getRole() == 'Manager') {
+            myIcon = myIconsSRC[0];
+            mySpecialInfo = `Office number: ${myGlobalPeople[i].officeNumber}`;
+        }
+        else if (myGlobalPeople[i].getRole() == 'Intern') {
+            myIcon = myIconsSRC[1];
+            mySpecialInfo = `School: ${myGlobalPeople[i].school}`;
+        }
+        else if (myGlobalPeople[i].getRole() == 'Engineer') {
+            myIcon = myIconsSRC[2];
+            mySpecialInfo = `GitHub: <span><a href="https://github.com/${myGlobalPeople[i].github}" target="_blank">${myGlobalPeople[i].github}</a></span>`;
+        }
+        myTeamCards += `<div class="card bg-primary text-white .col-6 .col-sm-6 .col-md-6 .col-lg-6 .col-xl-6 .col-xxl-6" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title name_spot">${myGlobalPeople[i].name}</h5>
+            <p class="card-text"><span><img class='icon' src="${myIcon}" style="height: 1em; filter: invert(1); margin: 0px 10px 0px 0px;"></span><spanc class="role_span">${myGlobalPeople[i].getRole()}</span></p>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item bg-light.bg-gradient">ID: ${myGlobalPeople[i].id}</li>
+            <li class="list-group-item bg-light.bg-gradient">Email: <span><a href ="mailto:${myGlobalPeople[i].email}">${myGlobalPeople[i].email}</a></span> </li>
+            <li class="list-group-item bg-light.bg-gradient">${mySpecialInfo}</li>
+        </ul>
+    </div>`
+    }
+    return myTeamCards;
+}
+
 
 addManager();

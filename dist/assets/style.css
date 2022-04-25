@@ -1,0 +1,21 @@
+.main_header {
+    display: flex;
+    justify-content: center;
+    
+    padding: 2em;
+}
+.main_container {
+    padding: 1%;
+    margin: 1%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.card {
+    margin: 1%;
+}
+
+.list-group {
+    margin: 3%;
+}
