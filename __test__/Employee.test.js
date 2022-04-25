@@ -1,17 +1,16 @@
 const Employee = require("../lib/Employee");
 
-// can instantiate instance
-// can set name via constructur
-// can set id via constructor
-// can get name  via getName() 
-// can get id via getID
-// can get email via getEmail
-// getRole() should return employee
+// can instantiate instance - DONE
+// can set name via constructur - DONE
+// can set id via constructor - DONE
+// can get name  via getName()  - DONE 
+// can get id via getID - DONE
+// can get email via getEmail - DONE
+// getRole() should return employee - DONE
 
 describe("Employee", () => {
     describe('Initialization', () => {
         it("should set the values of name, id, and email, when those values are passed into the object", () => {
-            // getName should return the name of the employee
             let nameStr = "Dr. Frank W. Gore, M.D., FAAC, ACS";
             let idVal = 5;
             let emailStr = "headhoncho@corp.com";
@@ -25,23 +24,29 @@ describe("Employee", () => {
     });
     
     describe("getName", () => {
-        it('should ', () => {
-            
+        it("should return a name when getName method is called", () => {
+            // getName should return the name of the employee
+            let nameStr = "Dr. Frank W. Gore, M.D., FAAC, ACS";
+            let idVal = 5;
+            let emailStr = "headhoncho@corp.com";
+            const employee = new Employee(nameStr, idVal, emailStr);
+                    
+            expect(employee.getName()).toEqual("Dr. Frank W. Gore, M.D., FAAC, ACS");
         });
 
     }); 
 
     describe("getId", () => {
-        it('should ', () => {
+        it('should return an ID when getID method is called', () => {
+            // getId should return the name of the employee
+            let nameStr = "Dr. Frank W. Gore, M.D., FAAC, ACS";
+            let idVal = 5;
+            let emailStr = "headhoncho@corp.com";
+            const employee = new Employee(nameStr, idVal, emailStr);
+                    
+            expect(employee.getId()).toEqual(5);
             
         });
-        // getName should return the name of the employee
-        // arrange, act, assert
-        // const strNomen = "Dr. Frank W. Gore, M.D., FAAC, ACS";
-        // const employee1 = new Employee(strNomen, 5, 'binnys');
-        // const result = employee1.name();
-        
-        // expect(result).toEqual(strNomen);
     });
 
     describe("getEmail", () => {
@@ -51,8 +56,7 @@ describe("Employee", () => {
             let emailStr = "headhoncho@corp.com";
             const employee = new Employee(nameStr, idVal, emailStr);
 
-            let empEmail = employee.getEmail();
-            expect(empEmail).toEqual('headhoncho@corp.com');
+            expect(employee.getEmail()).toEqual('headhoncho@corp.com');
         });
         
     });
@@ -64,8 +68,7 @@ describe("Employee", () => {
             let emailStr = "headhoncho@corp.com";
             const employee = new Employee(nameStr, idVal, emailStr);
 
-            let empRole = employee.getRole();
-            expect(empRole).toEqual('Employee');
+            expect(employee.getRole()).toEqual('Employee');
 
         });
         
