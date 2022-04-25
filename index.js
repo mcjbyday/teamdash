@@ -2,11 +2,9 @@
 let fs = require('fs');
 const inquirer = require('inquirer');
 
-const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-// const { default: generateEmptyCoverage } = require('@jest/reporters/build/generateEmptyCoverage');
 
 // onstart
 // enter the team manager’s name, employee ID, email address, and office number
@@ -48,23 +46,19 @@ const addManager = () => {
             default: true,
         }
     ])
-        .then(response => {
-            console.log(response)
+        .then(({mgrName, mgrID, mgrEmail, mgrOfficeNum} = response) => { 
             //myGlobalPeople.push(new Manager ( .. . .. )) 
+            myGlobalPeople.push(new Manager(mgrName, mgrID, mgrEmail, mgrOfficeNum));
             if (response.addPerson) {
                 addTeamMember();
-            } else process.exit() // TO DO update to be inclusive of file function myWriteFunction
+            } 
+            else {
+                myWriteFunction();
+                process.exit() 
+            }
         })
     }
 
-
-function checkConfirm(response) {
-    console.log(response)
-    if(response.addPerson){
-        return addTeamMember()
-    }
-    else return console.log(response)
-    }
 
 const addTeamMember = () => {
     return inquirer.prompt([
@@ -113,14 +107,18 @@ const addTeamMember = () => {
         })
     }
 
-
 function myWriteFunction() {
-    // fs() 
     // use global array and generate the doc using boilerplate card HTML with template literals
+    fs.writeFile('garbage_out.html',
+`<h1 id="project-title">${myGlobalPeople[0]}</h1>\n
+<h1 id="project-title">${myGlobalPeople[1]}</h1>\n
+<h1 id="project-title">${myGlobalPeople[2]}</h1>`, 
+    (err) => err ? console.error(err) : console.log('Check directory for details'));
 }
 
+addManager();
 
-    
+
 // .then((response) => {
 //     // deconstruct response object in order to display information in readme file to be written
 //     let {projectNameInput, projectLicense, mgrOfficeNum, commandLineInstallInput, instructProjectUsage, instructProjectContributions, commandLineTestInput, mgrName, mgrID} = response;
@@ -131,30 +129,6 @@ function myWriteFunction() {
 
 
 // Use writeFileSync method to use promises instead of a callback function
-
-// const generateHTML = ({ name, location, github, linkedin }) =>
-// `<!DOCTYPE html>
-// <html lang="en">
-// <head>
-// <meta charset="UTF-8">
-// <meta http-equiv="X-UA-Compatible" content="ie=edge">
-// <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-// <title>Document</title>
-// </head>
-// <body>
-// <div class="jumbotron jumbotron-fluid">
-// <div class="container">
-//     <h1 class="display-4">Hi! My name is ${name}</h1>
-//     <p class="lead">I am from ${location}.</p>
-//     <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
-//     <ul class="list-group">
-//     <li class="list-group-item">My GitHub username is ${github}</li>
-//     <li class="list-group-item">LinkedIn: ${linkedin}</li>
-//     </ul>
-// </div>
-// </div>
-// </body>
-// </html>`;
 
 // // Bonus using writeFileSync as a promise
 // const init = () => {
