@@ -16,136 +16,114 @@ const Intern = require('./lib/Intern');
 // THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
 // WHEN I select the intern option
 // THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
-const setSTART = () => {
+
+let myGlobalPeople = [];
+
+const addManager = () => {
     return inquirer.prompt([
-        type: 'input',
-        message: "START TEST 1",
-        name: 'startTEST',
+        {
+            type: 'input',
+            message: "What is your team manager's name?",
+            name: 'mgrName',
+        },
+        {
+            type: 'input',
+            message: 'What is their employee ID?',
+            name: 'mgrID',
+        },
+        {
+            type: 'input',
+            message: 'What is their email address?',
+            name: 'mgrEmail',
+        },
+        {
+            type: 'input',
+            message: "What is their office number?",
+            name: 'mgrOfficeNum',
+        },
+        {
+            type: 'confirm',
+            message: "Add another team member? (hit enter for yes)",
+            name: 'addPerson',
+            default: true,
+        }
     ])
-    .then(() => {
-        setOPTION();
+        .then(response => {
+            console.log(response)
+            //myGlobalPeople.push(new Manager ( .. . .. )) 
+            if (response.addPerson) {
+                addTeamMember();
+            } else process.exit() // TO DO update to be inclusive of file function myWriteFunction
+        })
     }
-    )
-}
 
-const setOPTION = () => {
+
+function checkConfirm(response) {
+    console.log(response)
+    if(response.addPerson){
+        return addTeamMember()
+    }
+    else return console.log(response)
+    }
+
+const addTeamMember = () => {
     return inquirer.prompt([
         {
-        type: 'list',
-        message: "PICK ONE OPTION",
-        name: 'OPTIONSELECTION',
-        editableList: false,
-        choices: ['option1', 'option2','endME'],
-        }
-    ])
-    .then((optionRESPONSE) => {
-        let {selection} = optionRESPONSE;
-        if (selection == 'option1') {
-            doOption1Once();
-        }
-        else if (selection == 'option2') {
-            doOption2Once();
-        }
-        else {
-            makePage();
-        }
-}
-
-const doOption1Once = () => {
-    return inquirer.prompt([
+            type: 'list',
+            message: "What is the role of this team member?",
+            name: 'employeeType',
+            editableList: false,
+            choices: ['Engineer','Intern'],
+        },
         {
-        type: 'input',
-        message: "for OPTION1",
-        name: 'option1details',
+            type: 'input',
+            message: "What is their name?",
+            name: 'name',
+        },
+        {
+            type: 'input',
+            message: 'What is their employee ID?',
+            name: 'id',
+        },
+        {
+            type: 'input',
+            message: 'What is their email address?',
+            name: 'email',
+        },
+        {
+            type: 'input',
+            message: "What is their github?",
+            name: 'engGithub',
+            when: answers => answers.employeeType == 'Engineer',
+        },
+        {
+            type: 'input',
+            message: "What is your school?",
+            name: 'internSchool',
+            when: answers => answers.employeeType == 'Intern',
         }
     ])
+        .then(({employeeType, name, id, email} = addOne) => {
+            if (employeeType == "Engineer") {
+                myGlobalPeople.push(new Engineer(name, id, email, addOne.engGithub));    
+            }
+            else if (employeeType == "Intern") {
+                myGlobalPeople.push(new Intern(name, id, email, addOne.internSchool));
+            }
+        })
+    }
+
+
+function myWriteFunction() {
+    // fs() 
+    // use global array and generate the doc using boilerplate card HTML with template literals
 }
 
-
-
-// const setManager = () => {
-//     return inquirer.prompt([
-//         {
-//             type: 'input',
-//             message: "What is your team manager's name?",
-//             name: 'teamManagerName',
-//         },
-//         {
-//             type: 'input',
-//             message: 'What is their employee ID?',
-//             name: 'teamManagerID',
-//         },
-//         {
-//             type: 'input',
-//             message: 'What is their email address?',
-//             name: 'teamManagerEmail',
-//         },
-//         {
-//             type: 'input',
-//             message: "What is their office number?",
-//             name: 'teamManagerOffice',
-//         }])
-//     }
-
-// const completeTeam = () => {
-//     return inquirer.prompt([
-//         {
-//             type: 'list',
-//             message: "Would you like to add an additional team member?",
-//             name: 'teamMateType',
-//             editableList: false,
-//             choices: [
-                    //     'Engineer',
-                    //     'Intern',
-                    //     "I'm done adding team members",
-                    // ],
-//         }])
-//         .then((responseAddTeamMember) => {
-//             let {teamMateType} = responseAddTeamMember;
-//             if (teamMateType == 'Engineer') {
-//                 addEngineer();
-//             }
-//             else if (teamMateType == 'Intern') {
-//                 addIntern();
-//             }
-//             else {
-//                 makePage();
-//             }
-//         })
-//     }
-
-// const addEngineer = () => {
-//     return inquirer.prompt([
-//         {
-//             type: 'input',
-//             message: "What is the engineer team member's name?",
-//             name: 'engineerName',
-//         },
-//         {
-//             type: 'input',
-//             message: 'What is their employee ID?',
-//             name: 'engineerID',
-//         },
-//         {
-//             type: 'input',
-//             message: 'What is their email address?',
-//             name: 'engineerEmail',
-//         },
-//         {
-//             type: 'input',
-//             message: "What is their github?",
-//             name: 'engineerGithub',
-//         }])
-//         .then((responseAddEng) => {
-//             completeTeam();
-//         }
-            
-// }
 
     
 // .then((response) => {
 //     // deconstruct response object in order to display information in readme file to be written
-//     let {projectNameInput, projectLicense, teamManagerOffice, commandLineInstallInput, instructProjectUsage, instructProjectContributions, commandLineTestInput, teamManagerName, teamManagerID} = response;
+//     let {projectNameInput, projectLicense, mgrOfficeNum, commandLineInstallInput, instructProjectUsage, instructProjectContributions, commandLineTestInput, mgrName, mgrID} = response;
 //     // fs writefile includes filename, file contents, and error handling/success message if write is successful 
 //     fs.writeFile('README_output.md', `<p style='text-align: right;'><a href="#project-title">Back to Top</a></p>`, 
 //     (err) => err ? console.error(err) : console.log('Check directory for details'))
@@ -154,16 +132,6 @@ const doOption1Once = () => {
 
 // Use writeFileSync method to use promises instead of a callback function
 
-// const promptUser = () => {
-//     return inquirer.prompt([
-//       {
-//         type: 'input',
-//         name: 'linkedin',
-//         message: 'Enter your LinkedIn URL.',
-//       },
-//     ]);
-//   };
-  
 // const generateHTML = ({ name, location, github, linkedin }) =>
 // `<!DOCTYPE html>
 // <html lang="en">
@@ -190,15 +158,9 @@ const doOption1Once = () => {
 
 // // Bonus using writeFileSync as a promise
 // const init = () => {
-// setManager()
-//     .then((responseManager) => {
-//         let {teamManagerOffice, teamManagerName, teamManagerEmail, teamManagerID} = responseManager;
-//         addNewMember();
-//     })
+// 
 //     // Use writeFileSync method to use promises instead of a callback function
 //     .then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
 //     .then(() => console.log('Successfully wrote to index.html'))
 //     .catch((err) => console.error(err));
-// };
-
-// init();
+// }
