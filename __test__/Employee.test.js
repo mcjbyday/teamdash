@@ -1,13 +1,5 @@
 const Employee = require("../lib/Employee");
 
-// can instantiate instance - DONE
-// can set name via constructur - DONE
-// can set id via constructor - DONE
-// can get name  via getName()  - DONE 
-// can get id via getID - DONE
-// can get email via getEmail - DONE
-// getRole() should return employee - DONE
-
 describe("Employee", () => {
     describe('Initialization', () => {
         it("should set the values of name, id, and email, when those values are passed into the object", () => {
