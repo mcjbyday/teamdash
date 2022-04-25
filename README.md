@@ -3,4 +3,8 @@ as a team member I want to automate the creation of a webpage that displays my t
 
 
 
-
+Node.js
+Inquirer.js
+Jest.js
+Bootstrap
+Font Awesome

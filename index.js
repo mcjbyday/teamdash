@@ -117,10 +117,10 @@ const addTeamMember = () => {
             }
         })
     }
-
+// function writes full HTML document to a file 
 function myWriteFunction(allCards) {
     // use global array and generate the doc using boilerplate card HTML with template literals
-    fs.writeFile('./dist/garbage_out.html',
+    fs.writeFile('./dist/teamdash.html',
 `<!DOCTYPE html>
 <html lang="en">
     <head>
@@ -139,12 +139,14 @@ function myWriteFunction(allCards) {
     (err) => err ? console.error(err) : console.log('Check directory for details'));
 }
 
+// set aside icon src addresses for reference based on role
 let myIconsSRC = [
     "./assets/person-harassing-solid.svg", 
     "./assets/baby-carriage-solid.svg", 
     "./assets/gem-solid.svg" 
 ];
 
+// function assembles the card components for use in the HTML document 
 function buildCards() {
     let myTeamCards = ``;
     let myIcon = ``;
