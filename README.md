@@ -27,15 +27,16 @@
 
 <h2 id="project-live">See it in action!</h2>
 
-[Screen Recording of Application]( )
+[Screen Recording of Application](https://drive.google.com/file/d/18wAx0UgcbuxG6OFjd28aNkIiRd1dyEPX/view?usp=sharing)
 
 *Note: Output files will be written to the ./dist directory.*
-<!-- 
+
 <h2 id="project-captures">Screen captures</h2>
 
 | Image | Description |
 | --- | ----------- |
-| ![Console Usage](./assets/screenshots/Screenshot1.png) | Console Usage | -->
+| <img src="./dist/assets/reference/screenshot1.png" alt="Console Usage" width="600"/> | Console Usage |
+|  <img src="./dist/assets/reference/screenshot2.png" alt="Output Web Page" width="600"/>  | Rendered Web Page |
 
 <h2 id="project-tech">Technology</h2>
 
